@@ -1,21 +1,30 @@
-package com.spartaglobal.fixerio;
+package com.spartaglobal.fixerio.RatesService;
 
 import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 public class RatesDTO {
 
     private JSONObject rates;
+    private JSONObject ratesRates;
 
     public RatesDTO(String jsonString) {
-        RatesJsonParser parser = new RatesJsonParser(jsonString);
+        RatesJsonDeserialiser parser = new RatesJsonDeserialiser(jsonString);
         rates = parser.getRatesJson();
+        ratesRates = (JSONObject) rates.get("rates");
     }
 
     public JSONObject getRates() {
-        return rates;
+        return ratesRates;
+    }
+
+    public double getRate(String key) {
+        JSONObject tempRates = getRates();
+        double value = (double) tempRates.get(key);
+        return value;
     }
 
     public boolean getSuccess(){
@@ -34,5 +43,9 @@ public class RatesDTO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
         LocalDate date  = LocalDate.parse((String) rates.get("date"), formatter);
         return date;
+    }
+    
+    public int amount(){
+        return ratesRates.size();
     }
 }

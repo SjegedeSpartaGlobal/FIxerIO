@@ -1,5 +1,6 @@
-package com.spartaglobal.fixerio;
+package com.spartaglobal.fixerio.RatesService;
 
+import com.spartaglobal.fixerio.RatesService.RatesJsonDeserialiser;
 import org.json.simple.JSONObject;
 
 import java.io.FileWriter;
@@ -10,7 +11,7 @@ import java.util.UUID;
 public class RatesWriter {
 
     private FileWriter file;
-    private RatesJsonParser parser;
+    private RatesJsonDeserialiser parser;
 
     public RatesWriter(JSONObject jsonObject) {
         try {
